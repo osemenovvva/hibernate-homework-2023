@@ -28,7 +28,7 @@ public class EmployerServiceTest extends BaseTest {
         new EmployerDao(sessionFactory),
         new TransactionHelper(sessionFactory)
     );
-    TestHelper.executeScript(pg.getPostgresDatabase(), "create_employers.sql");
+    TestHelper.executeScript(dataSource, "create_employers.sql");
   }
 
   @Test
