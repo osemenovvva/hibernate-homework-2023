@@ -23,7 +23,7 @@ public class BatchingTest extends BaseTest {
   }
 
   /**
-   * ToDo доконфигурируйте ru.hh.school.batching.Resume
+   * ToDo доконфигурируйте ru.hh.school.entity.Resume
    *
    * @see scripts/create_resume.sql
    *      и hibernate.properties (раздел batch processing)
