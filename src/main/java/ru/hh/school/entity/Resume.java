@@ -3,6 +3,8 @@ package ru.hh.school.entity;
 import javax.persistence.*;
 
 //TODO: оформите entity
+@Entity
+@Table(name = "resume")
 public class Resume {
   // TODO: сделать так, чтобы id брался из sequence-а
   // таким образом, мы сможем отправлять в бд запросы батчами.
