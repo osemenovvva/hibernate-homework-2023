@@ -1,11 +1,13 @@
 package ru.hh.school;
 
-import com.opentable.db.postgres.embedded.EmbeddedPostgres;
+import javax.sql.DataSource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.postgresql.ds.PGSimpleDataSource;
+import org.testcontainers.containers.PostgreSQLContainer;
 import ru.hh.school.util.QueryInfoHolder;
 import java.io.IOException;
 import java.util.Optional;
@@ -13,13 +15,25 @@ import java.util.function.Supplier;
 
 public abstract class BaseTest {
 
-  protected static EmbeddedPostgres pg;
+  protected static PostgreSQLContainer pgContainer;
+  protected static DataSource dataSource;
   protected static SessionFactory sessionFactory;
 
   @BeforeClass
   public static void setupSessionFactory() throws IOException {
-    pg = EmbeddedPostgres.builder().setPort(5433).start();
-    sessionFactory = DbFactory.createSessionFactory();
+    pgContainer = new PostgreSQLContainer<>("postgres")
+      .withUsername("postgres")
+      .withPassword("postgres");
+    pgContainer.start();
+
+    PGSimpleDataSource pgDataSource = new PGSimpleDataSource();
+    String jdbcUrl = pgContainer.getJdbcUrl();
+    pgDataSource.setUrl(jdbcUrl);
+    pgDataSource.setUser(pgContainer.getUsername());
+    pgDataSource.setPassword(pgContainer.getPassword());
+    dataSource = pgDataSource;
+
+    sessionFactory = DbFactory.createSessionFactory(dataSource);
   }
 
   @Before

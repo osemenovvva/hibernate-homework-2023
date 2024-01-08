@@ -14,12 +14,12 @@ public class BatchingTest extends BaseTest {
 
   @BeforeClass
   public static void createTable() {
-    TestHelper.executeScript(pg.getPostgresDatabase(), "create_resume.sql");
+    TestHelper.executeScript(dataSource, "create_resume.sql");
   }
 
   @Before
   public void clearTable() {
-    TestHelper.execute(pg.getPostgresDatabase(), "delete from resume");
+    TestHelper.execute(dataSource, "delete from resume");
   }
 
   /**

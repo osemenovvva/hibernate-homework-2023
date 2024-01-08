@@ -25,12 +25,12 @@ public class VacancyServiceTest extends BaseTest {
         new VacancyDao(sessionFactory),
         new TransactionHelper(sessionFactory)
     );
-    TestHelper.executeScript(pg.getPostgresDatabase(), "create_employers.sql");
+    TestHelper.executeScript(dataSource, "create_employers.sql");
   }
 
   @Test
   public void getSalaryStatistics() {
-    TestHelper.executeScript(pg.getPostgresDatabase(), "clear_data.sql");
+    TestHelper.executeScript(dataSource, "clear_data.sql");
 
     Employer employer = new Employer();
     employer.setCompanyName("HH");
