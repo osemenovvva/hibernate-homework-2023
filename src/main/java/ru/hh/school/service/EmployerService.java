@@ -1,5 +1,6 @@
 package ru.hh.school.service;
 
+import org.hibernate.SessionFactory;
 import ru.hh.school.util.TransactionHelper;
 import ru.hh.school.dao.EmployerDao;
 import ru.hh.school.dao.GenericDao;
@@ -69,6 +70,7 @@ public class EmployerService {
     transactionHelper.inTransaction(() -> {
       employer.setBlockTime(LocalDateTime.now());
       employer.getVacancies().forEach(v -> v.setArchivingTime(LocalDateTime.now()));
+      genericDao.save(employer);
     });
   }
 

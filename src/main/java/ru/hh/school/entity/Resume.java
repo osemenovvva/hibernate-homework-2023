@@ -1,7 +1,6 @@
 package ru.hh.school.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 //TODO: оформите entity
 public class Resume {
@@ -15,9 +14,12 @@ public class Resume {
   // https://vladmihalcea.com/from-jpa-to-hibernates-legacy-and-enhanced-identifier-generators/
 
   @Id
-  @GeneratedValue(/* здесь место для вашего кода */)
+  @GeneratedValue(generator = "resume_id_seq", strategy= GenerationType.SEQUENCE)
+  @SequenceGenerator(name="resume_id_seq", sequenceName="resume_id_seq", allocationSize=10)
+  @Column(name="id")
   private Integer id;
 
+  @Column(name="description")
   private String description;
 
   Resume() {}

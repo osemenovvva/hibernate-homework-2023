@@ -25,7 +25,7 @@ public class GenericDao {
     if (object == null) {
       return;
     }
-    getSession().save(object);
+    getSession().saveOrUpdate(object);
   }
 
   protected Session getSession() {
